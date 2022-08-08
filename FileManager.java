@@ -31,7 +31,7 @@ public class FileManager {
 	}
 	
 	public void saveSettings() {
-	try {
+		try {
 			PrintWriter var9 = new PrintWriter(new FileWriter(this.SETTING_DIR));
 			for(Module m: Client.getModule()) 
 			{
@@ -54,8 +54,8 @@ public class FileManager {
 	
 	public void loadSettings() {
 		try{
-            if (!this.SETTING_DIR.exists())
-                return;
+			if (!this.SETTING_DIR.exists())
+                	return;
 
             BufferedReader var9 = new BufferedReader(new FileReader(this.SETTING_DIR));
             String var2 = "";
