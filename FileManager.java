@@ -33,8 +33,7 @@ public class FileManager {
 	public void saveSettings() {
 		try {
 			PrintWriter var9 = new PrintWriter(new FileWriter(this.SETTING_DIR));
-			for(Module m: Client.getModule()) 
-			{
+			for(Module m: Client.getModule()) {
 				var9.println(m.getName() + " Enabled " + String.valueOf(m.isToggled()));
 				for(Setting s: m.settings) {
 					if(s instanceof ModeSetting) 
@@ -54,47 +53,38 @@ public class FileManager {
 	
 	public void loadSettings() {
 		try{
-			if (!this.SETTING_DIR.exists())
-                	return;
+			if (!this.SETTING_DIR.exists()) return;
 
-            BufferedReader var9 = new BufferedReader(new FileReader(this.SETTING_DIR));
-            String var2 = "";
+			BufferedReader var9 = new BufferedReader(new FileReader(this.SETTING_DIR));
+			String var2 = "";
 
-            while ((var2 = var9.readLine()) != null){
-                try{
-                	if(var2.equals("/")) continue;
-                    String[] var8 = var2.split(" ");
+			while ((var2 = var9.readLine()) != null){
+				try{
+					if(var2.equals("/")) continue;
+					String[] var8 = var2.split(" ");
 
-                    for(Module m: Client.getModule()) {
-                		if (m.getName().equals(var8[0])) {
-                			if(var8[1].equals("Enabled")) {
-                				if(var8[2].equals("true")) m.toggled = true;
-	                    		else m.toggled = false;
-                			}
-                			else {
-                    			for(Setting s: m.settings) {
-                    				if(var8[1].equals(s.name)) {
-                    					if(s instanceof ModeSetting) ((ModeSetting)s).index = ((ModeSetting)s).modes.indexOf(var8[2]);
-                    					else if(s instanceof BooleanSetting) ((BooleanSetting)s).setEnabled(var8[2].equals("true"));
-                    					else if(s instanceof NumberSetting) ((NumberSetting)s).setValue(Double.valueOf(var8[2]));
-                    				}
-                    			}
-                			}
-	                    }
-                    }
-                }
-                catch (Exception var101)
-                {
+					for(Module m: Client.getModule()) {
+						if (m.getName().equals(var8[0])) {
+							if(var8[1].equals("Enabled")) m.toggled = var8[2].equals("true");
+							else {
+								for(Setting s: m.settings) {
+									if(var8[1].equals(s.name)) {
+										if(s instanceof ModeSetting) ((ModeSetting)s).index = ((ModeSetting)s).modes.indexOf(var8[2]);
+										else if(s instanceof BooleanSetting) ((BooleanSetting)s).setEnabled(var8[2].equals("true"));
+										else if(s instanceof NumberSetting) ((NumberSetting)s).setValue(Double.valueOf(var8[2]));
+									}
+								}
+							}
+						}
+					}
+                }catch (Exception var101) {
                     logger.warn("Skipping bad option: " + var2);
                     var101.printStackTrace();
                 }
             }
-
             KeyBinding.resetKeyBindingArrayAndHash();
             var9.close();
-        }
-        catch (Exception var111)
-        {
+        }catch (Exception var111) {
             logger.error("Failed to load Render options", var111);
         }
 	}
