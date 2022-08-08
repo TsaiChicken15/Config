@@ -31,7 +31,7 @@ public class FileManager {
 	}
 	
 	public void saveSettings() {
-		try {
+	try {
 			PrintWriter var9 = new PrintWriter(new FileWriter(this.SETTING_DIR));
 			for(Module m: Client.getModule()) 
 			{
