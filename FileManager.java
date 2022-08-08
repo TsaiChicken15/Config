@@ -37,39 +37,31 @@ public class FileManager {
 			{
 				var9.println(m.getName() + " Enabled " + String.valueOf(m.isToggled()));
 				for(Setting s: m.settings) {
-					if(s instanceof ModeSetting) {
+					if(s instanceof ModeSetting) 
 						var9.println(m.getName() + " " + ((ModeSetting)s).name + " " + String.valueOf(((ModeSetting)s).get()));
-					}else if(s instanceof BooleanSetting) {
+					else if(s instanceof BooleanSetting) 
 						var9.println(m.getName() + " " + ((BooleanSetting)s).name + " " + String.valueOf(((BooleanSetting)s).get()));
-					}else if(s instanceof NumberSetting) {
+					else if(s instanceof NumberSetting) 
 						var9.println(m.getName() + " " + ((NumberSetting)s).name + " " + String.valueOf(((NumberSetting)s).get()));
-					}
 				}
 				var9.println("/");
 			}
 			var9.close();
-		}
-		catch(Exception e) 
-		{
+		}catch(Exception e) {
 			logger.error("Failed to save Render options", e);
 		}
 	}
 	
 	public void loadSettings() {
-		try
-        {
+		try{
             if (!this.SETTING_DIR.exists())
-            {
                 return;
-            }
 
             BufferedReader var9 = new BufferedReader(new FileReader(this.SETTING_DIR));
             String var2 = "";
 
-            while ((var2 = var9.readLine()) != null)
-            {
-                try
-                {
+            while ((var2 = var9.readLine()) != null){
+                try{
                 	if(var2.equals("/")) continue;
                     String[] var8 = var2.split(" ");
 
