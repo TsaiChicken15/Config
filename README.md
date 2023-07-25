@@ -1,2 +1,2 @@
-# ConfigManager
+# Config
 FileManager For Minecraft Client
